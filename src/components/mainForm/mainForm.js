@@ -11,16 +11,16 @@ export default function MainForm({ setSection }) {
         <Button size="large" block onClick={() => setSection("femaleForm")}>
           Female factor other than PCOS and POF
         </Button>
-        <Button size="large" block>
+        <Button size="large" block onClick={() => setSection("pcosForm")}>
           Polycystic ovary syndrome (PCOS)
         </Button>
         <Button size="large" block>
           Premature ovarian failure (POF){" "}
         </Button>
-        <Button size="large" block>
+        <Button size="large" block onClick={() => setSection("maleForm")}>
           Male factor{" "}
         </Button>
-        <Button size="large" block>
+        <Button size="large" block onClick={() => setSection("mixForm")}>
           Mix{" "}
         </Button>
         <Button size="large" block>
