@@ -138,7 +138,7 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.634146341;
+      result = 0.63 * 100;
 
     //2
     if (
@@ -151,7 +151,7 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.536585366;
+      result = 0.53 * 100;
 
     //3
     if (
@@ -163,7 +163,7 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.524390244;
+      result = 0.52 * 100;
 
     //4
     if (
@@ -176,7 +176,7 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.524390244;
+      result = 0.52 * 100;
 
     //5
     if (
@@ -187,13 +187,13 @@ export default function FemaileForm() {
       !val.Dead_child &&
       !val.Living_Child &&
       !val.Abortion &&
-      trans_emb === 2
+      val.trans_emb === 2
     )
-      result = 0.512195122;
+      result = 0.51 * 100;
 
     //6
     if (
-      trans_emb === 2 &&
+      val.trans_emb === 2 &&
       val.AMH >= 1 &&
       !val.Thyroid_disorder &&
       !val.Female_Surgical_History &&
@@ -202,11 +202,11 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.512195122;
+      result = 0.51 * 100;
 
     //7
     if (
-      trans_emb === 2 &&
+      val.trans_emb === 2 &&
       !val.Female_Surgical_History &&
       val.Stimulation === "Antagonist" &&
       val.of2PN <= 10 &&
@@ -214,11 +214,11 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.5;
+      result = 0.5 * 100;
 
     //8
     if (
-      trans_emb === 2 &&
+      val.trans_emb === 2 &&
       val.oocyte_maturity >= 81 &&
       val.oocyte_maturity < 100 &&
       !val.Female_Surgical_History &&
@@ -227,11 +227,11 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.5;
+      result = 0.5 * 100;
 
     //9
     if (
-      trans_emb === 2 &&
+      val.trans_emb === 2 &&
       val.oocyte_maturity >= 81 &&
       val.oocyte_maturity < 100 &&
       val.AMH >= 1 &&
@@ -240,7 +240,7 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion
     )
-      result = 0.5;
+      result = 0.5 * 100;
 
     //10
     if (
@@ -251,9 +251,9 @@ export default function FemaileForm() {
       !val.Living_Child &&
       !val.Abortion &&
       val.of2PN <= 10 &&
-      trans_emb === 2
+      val.trans_emb === 2
     )
-      result = 0.5;
+      result = 0.5 * 100;
 
     if (result)
       notif.open({
@@ -526,7 +526,7 @@ export default function FemaileForm() {
           <Button block htmlType="submit" type="primary" loading={isLoading}>
             Prediction
           </Button>
-          <Button block htmlType="reset" onClick={() => setIsDisabled(false)}>
+          <Button block htmlType="reset">
             Reset
           </Button>
         </div>

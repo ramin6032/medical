@@ -14,8 +14,8 @@ export default function MainForm({ setSection }) {
         <Button size="large" block onClick={() => setSection("pcosForm")}>
           Polycystic ovary syndrome (PCOS)
         </Button>
-        <Button size="large" block>
-          Premature ovarian failure (POF){" "}
+        <Button size="large" block onClick={() => setSection("pofForm")}>
+          Premature ovarian failure (POF)
         </Button>
         <Button size="large" block onClick={() => setSection("maleForm")}>
           Male factor{" "}

@@ -1,7 +1,7 @@
 import { Button, Radio, Form, notification, message } from "antd";
 import { useState } from "react";
 
-export default function PcosForm() {
+export default function PofForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [notif, notifHolder] = notification.useNotification();
@@ -19,21 +19,6 @@ export default function PcosForm() {
     },
   ];
 
-  const one = [
-    {
-      label: "More than 1",
-      value: 2,
-    },
-    {
-      label: "Equal to 1",
-      value: 1,
-    },
-    {
-      label: "Less than 1",
-      value: 0,
-    },
-  ];
-
   const justOne = [
     {
       label: "More than 1",
@@ -45,18 +30,33 @@ export default function PcosForm() {
     },
   ];
 
-  const sixty = [
+  const half = [
     {
-      label: "More than 60",
-      value: 70,
+      label: "More than 1.5",
+      value: 2,
     },
     {
-      label: "Equal to 60",
-      value: 60,
+      label: "Equal to 1.5",
+      value: 1.5,
     },
     {
-      label: "Less than 60",
-      value: 50,
+      label: "less than 1.5",
+      value: 1,
+    },
+  ];
+
+  const ten = [
+    {
+      label: "More than 10",
+      value: 20,
+    },
+    {
+      label: "Equal to 10",
+      value: 10,
+    },
+    {
+      label: "Less than 10",
+      value: 5,
     },
   ];
 
@@ -72,25 +72,6 @@ export default function PcosForm() {
     {
       label: "Microdose",
       value: "Microdose",
-    },
-  ];
-
-  const afc = [
-    {
-      label: "1-8",
-      value: 5,
-    },
-    {
-      label: "9-12",
-      value: 10,
-    },
-    {
-      label: "13-17",
-      value: 15,
-    },
-    {
-      label: "18 or More than 18",
-      value: 20,
     },
   ];
 
@@ -122,95 +103,115 @@ export default function PcosForm() {
 
   const process = (val) => {
     let result;
-
+    console.log(val);
     //1
     if (
-      val.AMH >= 1 &&
-      !val.Thyroid_disorder &&
-      val.Stimulation === "Antagonist" &&
-      val.embryos > 1
+      val.Progesterone < 1.5 &&
+      val.MII_oocytes <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.COC <= 10 &&
+      val.PN2_oocytes <= 10 &&
+      val.transferred_embryos === "Fresh"
     )
-      result = 0.58 * 100;
+      result = 0.53 * 100;
 
     //2
     if (
-      val.AMH >= 1 &&
-      val.embryos > 1 &&
-      val.Stimulation === "Antagonist" &&
-      val.Fertilization === "ICSI" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.COC <= 10 &&
+      val.PN2_oocytes <= 10 &&
+      val.transferred_embryos === "Fresh" &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.58 * 100;
+      result = 0.52 * 100;
 
     //3
     if (
-      val.Fertilization === "ICSI" &&
-      val.Stimulation === "Antagonist" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      !Female_Surgical_History &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.COC <= 10 &&
+      val.PN2_oocytes <= 10 &&
+      val.transferred_embryos === "Fresh" &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.57 * 100;
+      result = 0.52 * 100;
 
     //4
     if (
-      val.AMH >= 1 &&
-      val.Fertilization === "ICSI" &&
-      val.Stimulation === "Antagonist" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      !Female_Surgical_History &&
+      val.COC <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.PN2_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.57 * 100;
+      result = 0.51 * 100;
 
     //5
-    if (0) result = 0.56 * 100;
+    if (
+      val.MII_oocytes <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.PN2_oocytes <= 10 &&
+      val.transferred_embryos === "Fresh" &&
+      val.Fertilization_method === "ICSI"
+    )
+      result = 0.51 * 100;
 
     //6
     if (
-      val.AMH >= 1 &&
-      val.embryos > 1 &&
-      val.AFC > 18 &&
-      val.Fertilization === "ICSI" &&
-      val.Stimulation === "Antagonist" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI" &&
+      val.COC <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.PN2_oocytes <= 10 &&
+      val.embryos_transferred > 1
     )
-      result = 0.53 * 100;
+      result = 0.5 * 100;
 
     //7
     if (
-      val.AMH >= 1 &&
-      val.Fertilization === "ICSI" &&
-      val.Stimulation === "Antagonist" &&
-      val.embryos > 1 &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI" &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.COC <= 10 &&
+      val.PN2_oocytes <= 10 &&
+      val.transferred_embryos === "Fresh" &&
+      val.embryos_transferred > 1
     )
-      result = 0.53 * 100;
+      result = 0.5 * 100;
 
     //8
     if (
-      val.Anti_thyroi_peroxidase < 60 &&
-      val.AMH >= 1 &&
-      val.Stimulation === "Antagonist" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      val.COC <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.Fertilization_method === "ICSI" &&
+      val.transferred_embryos === "Fresh"
     )
-      result = 0.52 * 100;
+      result = 0.5 * 100;
 
     //9
     if (
-      val.Anti_thyroi_peroxidase < 60 &&
-      val.AMH >= 1 &&
-      val.Stimulation === "Antagonist" &&
-      val.embryos > 1 &&
-      !val.Thyroid_disorder
+      val.COC <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.transferred_embryos === "Fresh" &&
+      val.PN2_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.52 * 100;
+      result = 0.5 * 100;
 
     //10
     if (
-      val.Anti_thyroi_peroxidase < 60 &&
-      val.AMH >= 1 &&
-      val.Stimulation === "Antagonist" &&
-      val.Fertilization === "ICSI" &&
-      !val.Thyroid_disorder
+      val.MII_oocytes <= 10 &&
+      val.COC <= 10 &&
+      val.Stimulation_protocol === "Antagonist" &&
+      val.PN2_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI" &&
+      val.transferred_embryos === "Fresh"
     )
-      result = 0.51 * 100;
+      result = 0.5 * 100;
 
     if (result)
       notif.open({
@@ -258,8 +259,8 @@ export default function PcosForm() {
         autoComplete="off"
       >
         <Form.Item
-          label="Thyroid disorder"
-          name="Thyroid_disorder"
+          label="Previous surgeries related to female reproductive system"
+          name="Female_Surgical_History"
           rules={[
             {
               required: true,
@@ -275,8 +276,8 @@ export default function PcosForm() {
         </Form.Item>
 
         <Form.Item
-          label="Anti-müllerian hormone (AMH) level (ng/ml)"
-          name="AMH"
+          label="Progesterone Level on Day of hCG Injection (ng/ml)"
+          name="Progesterone"
           rules={[
             {
               required: true,
@@ -284,37 +285,7 @@ export default function PcosForm() {
             },
           ]}
         >
-          <Radio.Group options={one} optionType="button" buttonStyle="solid" />
-        </Form.Item>
-
-        <Form.Item
-          label="Anti-thyroid peroxidase (anti-TPO) level (IU/mL)"
-          name="Anti_thyroi_peroxidase"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={sixty}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Antral follicle counts (AFC)"
-          name="AFC"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group options={afc} optionType="button" buttonStyle="solid" />
+          <Radio.Group options={half} optionType="button" buttonStyle="solid" />
         </Form.Item>
 
         <Form.Item
@@ -352,8 +323,47 @@ export default function PcosForm() {
         </Form.Item>
 
         <Form.Item
+          label="No. of oocyte retrieved (COC)"
+          name="COC"
+          rules={[
+            {
+              required: true,
+              message: "required",
+            },
+          ]}
+        >
+          <Radio.Group options={ten} optionType="button" buttonStyle="solid" />
+        </Form.Item>
+
+        <Form.Item
+          label="No. of 2PN oocytes"
+          name="PN2_oocytes"
+          rules={[
+            {
+              required: true,
+              message: "required",
+            },
+          ]}
+        >
+          <Radio.Group options={ten} optionType="button" buttonStyle="solid" />
+        </Form.Item>
+
+        <Form.Item
+          label="Number of MII oocytes"
+          name="MII_oocytes"
+          rules={[
+            {
+              required: true,
+              message: "required",
+            },
+          ]}
+        >
+          <Radio.Group options={ten} optionType="button" buttonStyle="solid" />
+        </Form.Item>
+
+        <Form.Item
           label="No. of embryos transferred"
-          name="embryos"
+          name="embryos_transferred"
           rules={[
             {
               required: true,
@@ -370,7 +380,7 @@ export default function PcosForm() {
 
         <Form.Item
           label="Fertilization method"
-          name="Fertilization"
+          name="Fertilization_method"
           rules={[
             {
               required: true,

@@ -131,7 +131,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.755;
+      result = 0.75 * 100;
 
     //2
     if (
@@ -145,7 +145,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.745;
+      result = 0.74 * 100;
 
     //3
     if (
@@ -159,7 +159,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.735;
+      result = 0.73 * 100;
 
     //4
     if (
@@ -173,7 +173,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.73;
+      result = 0.73 * 100;
 
     //5
     if (
@@ -187,7 +187,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.73;
+      result = 0.73 * 100;
 
     //6
     if (
@@ -202,7 +202,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.72;
+      result = 0.72 * 100;
 
     //7
     if (
@@ -216,7 +216,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.715;
+      result = 0.71 * 100;
 
     //8
     if (
@@ -231,7 +231,7 @@ export default function MaleForm() {
       !val.Abortion &&
       val.Stimulation === "Antagonist"
     )
-      result = 0.71;
+      result = 0.71 * 100;
 
     if (result)
       notif.open({
@@ -478,7 +478,7 @@ export default function MaleForm() {
           <Button block htmlType="submit" type="primary" loading={isLoading}>
             Prediction
           </Button>
-          <Button block htmlType="reset" onClick={() => setIsDisabled(false)}>
+          <Button block htmlType="reset">
             Reset
           </Button>
         </div>

@@ -105,7 +105,7 @@ export default function MixForm() {
       !val.Female_Surgical_History &&
       !val.Thyroid_disorder
     )
-      result = 0.745689655;
+      result = 0.74 * 100;
 
     //2
     if (
@@ -117,7 +117,7 @@ export default function MixForm() {
       !val.Female_Surgical_History &&
       !val.Thyroid_disorder
     )
-      result = 0.715517241;
+      result = 0.71 * 100;
 
     //3
     if (
@@ -129,7 +129,7 @@ export default function MixForm() {
       !val.Female_Surgical_History &&
       !val.Thyroid_disorder
     )
-      result = 0.711206897;
+      result = 0.71 * 100;
 
     //4
     if (
@@ -143,7 +143,7 @@ export default function MixForm() {
       !val.Female_Surgical_History &&
       !val.Thyroid_disorder
     )
-      result = 0.711206897;
+      result = 0.71 * 100;
 
     //5
     if (
@@ -155,7 +155,7 @@ export default function MixForm() {
       val.Stimulation === "Antagonist" &&
       !val.Thyroid_disorder
     )
-      result = 0.706896552;
+      result = 0.7 * 100;
 
     if (result)
       notif.open({
@@ -402,7 +402,7 @@ export default function MixForm() {
           <Button block htmlType="submit" type="primary" loading={isLoading}>
             Prediction
           </Button>
-          <Button block htmlType="reset" onClick={() => setIsDisabled(false)}>
+          <Button block htmlType="reset">
             Reset
           </Button>
         </div>
