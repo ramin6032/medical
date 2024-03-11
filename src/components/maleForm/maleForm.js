@@ -1,11 +1,12 @@
-import { Button, Radio, Form, notification, message } from "antd";
+import { Button, Radio, Form, Modal, message, Divider } from "antd";
 import { useState } from "react";
+import { CloseCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 
 export default function MaleForm() {
   const [isLoading, setIsLoading] = useState(false);
-
-  const [notif, notifHolder] = notification.useNotification();
-
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [result, setResult] = useState("");
   const [msg, messagetHolder] = message.useMessage();
 
   const option = [
@@ -233,21 +234,10 @@ export default function MaleForm() {
     )
       result = 0.71 * 100;
 
-    if (result)
-      notif.open({
-        message: `Liveـbirth prediction: YES`,
-        description: `This prediction is based on ${result}% of available dataset`,
-        placement: "top",
-        duration: 0,
-        type: "success",
-      });
-    else
-      notif.open({
-        message: `Liveـbirth prediction: NO`,
-        placement: "top",
-        duration: 0,
-        type: "error",
-      });
+    if (result) {
+      setResult(result);
+      setSuccessModal(true);
+    } else setErrorModalOpen(true);
   };
 
   const onFinish = (value) => {
@@ -262,227 +252,267 @@ export default function MaleForm() {
   };
 
   return (
-    <div className=" p-lg-5 p-3 rounded shadow-sm bg-white">
-      {notifHolder}
-      {messagetHolder}
-      <h6 className="pb-3">
-        Dear operator, please fill out the electronic form and then tap on the
-        prediction button.
-      </h6>
-      <Form
-        name="basic"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Type of infertility"
-          name="infertility"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={infertility}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
+    <>
+      <p className="fw-medium fs-4 text-primary-emphasis text-center px-3">
+        Liveـbirth prediction expert system
+        <p className="fs-6 text-black text-center">Male Factor</p>
+      </p>
 
-        <Form.Item
-          label="Dead Child"
-          name="Dead_Child"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
+      <div className=" p-lg-5 p-3 rounded shadow-sm bg-white text-primary-emphasis">
+        {messagetHolder}
+        <h6 className="pb-3 text-primary-emphasis">
+          Dear operator, please fill out the electronic form and then tap on the
+          prediction button.
+        </h6>
+        <Form
+          style={{ minWidth: 330 }}
+          name="basic"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Radio.Group
-            options={option}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
+          <Form.Item
+            label="Type of infertility"
+            name="infertility"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={infertility}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
 
-        <Form.Item
-          label="Living Child"
-          name="Living_Child"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
+          <Form.Item
+            label="Dead Child"
+            name="Dead_Child"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={option}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Living Child"
+            name="Living_Child"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={option}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Abortion"
+            name="Abortion"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={option}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Male Addiction"
+            name="Male_Addiction"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={option}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Varicocelectomy"
+            name="Varicocelectomy"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={option}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Non-progressive motility (NP, %)"
+            name="motility"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={one}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Immotile spermatozoa (IM, %)"
+            name="spermatozoa"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={toweny}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Normal forms (%)"
+            name="Normal_forms"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={four}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="No. of embryos transferred"
+            name="embryos"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={justOne}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Stimulation protocol"
+            name="Stimulation"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={simulation}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Fertilization method"
+            name="Fertilization"
+            rules={[
+              {
+                required: true,
+                message: "required",
+              },
+            ]}
+          >
+            <Radio.Group
+              options={Fertilization}
+              optionType="button"
+              buttonStyle="solid"
+            />
+          </Form.Item>
+
+          <div className="d-flex pt-5 gap-3">
+            <Button block htmlType="submit" type="primary" loading={isLoading}>
+              Prediction
+            </Button>
+            <Button block htmlType="reset">
+              Reset
+            </Button>
+          </div>
+        </Form>
+        <Modal
+          title="Prediction"
+          open={errorModalOpen}
+          footer={false}
+          onCancel={() => setErrorModalOpen(false)}
         >
-          <Radio.Group
-            options={option}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Abortion"
-          name="Abortion"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
+          <div class="alert alert-danger fs-5" role="alert">
+            <CloseCircleFilled style={{ fontSize: "24px" }} /> Liveـbirth
+            prediction: <strong>NO</strong>
+          </div>
+        </Modal>
+        <Modal
+          title="Prediction"
+          open={successModal}
+          footer={false}
+          onCancel={() => setSuccessModal(false)}
         >
-          <Radio.Group
-            options={option}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Male Addiction"
-          name="Male_Addiction"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={option}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Varicocelectomy"
-          name="Varicocelectomy"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={option}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Non-progressive motility (NP, %)"
-          name="motility"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group options={one} optionType="button" buttonStyle="solid" />
-        </Form.Item>
-
-        <Form.Item
-          label="Immotile spermatozoa (IM, %)"
-          name="spermatozoa"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={toweny}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Normal forms (%)"
-          name="Normal_forms"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group options={four} optionType="button" buttonStyle="solid" />
-        </Form.Item>
-
-        <Form.Item
-          label="No. of embryos transferred"
-          name="embryos"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={justOne}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Stimulation protocol"
-          name="Stimulation"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={simulation}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Fertilization method"
-          name="Fertilization"
-          rules={[
-            {
-              required: true,
-              message: "required",
-            },
-          ]}
-        >
-          <Radio.Group
-            options={Fertilization}
-            optionType="button"
-            buttonStyle="solid"
-          />
-        </Form.Item>
-
-        <div className="d-flex pt-5 gap-3">
-          <Button block htmlType="submit" type="primary" loading={isLoading}>
-            Prediction
-          </Button>
-          <Button block htmlType="reset">
-            Reset
-          </Button>
-        </div>
-      </Form>
-    </div>
+          <div class="alert alert-success fs-5 " role="alert">
+            <CheckCircleFilled style={{ fontSize: "24px" }} /> Liveـbirth
+            prediction: <strong>YES</strong>
+            <p className="fs-6 fw-normal pt-2">
+              This prediction is based on <b>{result}%</b> of available dataset
+            </p>
+          </div>
+        </Modal>
+      </div>
+    </>
   );
 }

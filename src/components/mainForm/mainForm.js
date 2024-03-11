@@ -23,7 +23,7 @@ export default function MainForm({ setSection }) {
         <Button size="large" block onClick={() => setSection("mixForm")}>
           Mix{" "}
         </Button>
-        <Button size="large" block>
+        <Button size="large" block onClick={() => setSection("unknown")}>
           Unknown{" "}
         </Button>
       </div>

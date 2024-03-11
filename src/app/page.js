@@ -7,9 +7,9 @@ import MaleForm from "@src/components/maleForm/maleForm";
 import MixForm from "@src/components/mixForm/mixForm";
 import PcosForm from "@src/components/pcosForm/pcosForm";
 import PofForm from "@src/components/pofForm/pofForm";
+import UnknownForm from "@src/components/unknown/unknown";
 import { useEffect, useState } from "react";
-import { FloatButton } from "antd";
-import { LeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 export default function Home() {
   const [section, setSection] = useState();
@@ -33,15 +33,24 @@ export default function Home() {
           <PcosForm />
         ) : section === "pofForm" ? (
           <PofForm />
+        ) : section === "unknown" ? (
+          <UnknownForm />
         ) : (
           <Intro />
         )}
       </div>
-      <FloatButton
-        style={{ left: 25, background: "#cdcdcd" }}
-        onClick={() => setSection("mainForm")}
-        icon={<LeftOutlined style={{ fontSize: 18 }} />}
-      />
+      {section !== "mainForm" ? (
+        <ArrowLeftOutlined
+          onClick={() => setSection("mainForm")}
+          style={{
+            position: "absolute",
+            left: "15px",
+            top: "15px",
+            fontSize: "22px",
+            cursor: "pointer",
+          }}
+        />
+      ) : null}
     </main>
   );
 }

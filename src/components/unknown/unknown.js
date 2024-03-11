@@ -1,13 +1,13 @@
-import { Button, Radio, Form, Modal, message } from "antd";
+import { Button, Radio, Form, message, Modal } from "antd";
 import { useState } from "react";
 import { CloseCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 
-export default function FemaileForm() {
+export default function UnknownForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [msg, messagetHolder] = message.useMessage();
   const [successModal, setSuccessModal] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [result, setResult] = useState("");
-  const [msg, messagetHolder] = message.useMessage();
 
   const option = [
     {
@@ -19,7 +19,45 @@ export default function FemaileForm() {
       value: 0,
     },
   ];
-  const StimulationProtocolOptions = [
+
+  const justOne = [
+    {
+      label: "More than 1",
+      value: 2,
+    },
+    {
+      label: "Equal to 1",
+      value: 1,
+    },
+  ];
+
+  const ten = [
+    {
+      label: "More than 10",
+      value: 20,
+    },
+    {
+      label: "Equal to 10",
+      value: 10,
+    },
+    {
+      label: "Less than 10",
+      value: 5,
+    },
+  ];
+
+  const infertility = [
+    {
+      label: "Primary",
+      value: "Primary",
+    },
+    {
+      label: "Secondary",
+      value: "Secondary",
+    },
+  ];
+
+  const simulation = [
     {
       label: "Agonist",
       value: "Agonist",
@@ -33,29 +71,8 @@ export default function FemaileForm() {
       value: "Microdose",
     },
   ];
-  const maturityOptions = [
-    {
-      label: "0-20",
-      value: 10,
-    },
-    {
-      label: "21-40",
-      value: 30,
-    },
-    {
-      label: "41-60",
-      value: 50,
-    },
-    {
-      label: "61-80",
-      value: 70,
-    },
-    {
-      label: "81-100",
-      value: 90,
-    },
-  ];
-  const FertilizationOptions = [
+
+  const Fertilization = [
     {
       label: "IVF",
       value: "IVF",
@@ -70,191 +87,49 @@ export default function FemaileForm() {
     },
   ];
 
-  const AntiMullerianOptions = [
-    {
-      label: "More than 1",
-      value: 2,
-    },
-    {
-      label: "Equal to 1",
-      value: 1,
-    },
-    {
-      label: "Less than 1",
-      value: 0,
-    },
-  ];
-
-  const embryosOptions = [
-    {
-      label: "More than 1",
-      value: 2,
-    },
-    {
-      label: "Equal to 1",
-      value: 1,
-    },
-  ];
-
-  const Of2PNOptions = [
-    {
-      label: "More than 10",
-      value: 12,
-    },
-    {
-      label: "Equal to 10",
-      value: 10,
-    },
-    {
-      label: "Less than 10",
-      value: 0,
-    },
-  ];
-
-  const ProgesteroneLevel = [
-    {
-      label: "More than 1.5",
-      value: 2,
-    },
-    {
-      label: "Equal to 1.5",
-      value: 1.5,
-    },
-    {
-      label: "Less than 1.5",
-      value: 0,
-    },
-  ];
-
   const process = (val) => {
     let result;
 
     //1
     if (
-      val.trans_emb === 2 &&
-      val.AMH >= 1 &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
+      val.infertility === "Primary" &&
+      !val.Thyroid_disorder &&
+      !val.Abortion &&
+      !val.relationship &&
+      !val.Dead_Child &&
+      !val.Stimulation_protocol === "Antagonist" &&
       !val.Living_Child &&
-      !val.Abortion
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.63 * 100;
+      result = 0.94 * 100;
 
     //2
     if (
-      val.trans_emb === 2 &&
-      val.AMH >= 1 &&
-      val.oocyte_maturity >= 81 &&
-      val.oocyte_maturity < 100 &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
+      val.infertility === "Primary" &&
+      val.embryos_transferred > 1 &&
+      !val.Thyroid_disorder &&
+      !val.Abortion &&
+      !val.relationship &&
+      !val.Dead_Child &&
       !val.Living_Child &&
-      !val.Abortion
+      !val.Stimulation_protocol === "Antagonist" &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.53 * 100;
+      result = 0.82 * 100;
 
     //3
     if (
-      val.trans_emb === 2 &&
-      val.Progesterone < 1.5 &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion
-    )
-      result = 0.52 * 100;
-
-    //4
-    if (
-      val.trans_emb === 2 &&
-      val.AMH >= 1 &&
+      val.infertility === "Primary" &&
       !val.Thyroid_disorder &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion
-    )
-      result = 0.52 * 100;
-
-    //5
-    if (
-      val.Progesterone < 1.5 &&
-      val.AMH >= 1 &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
       !val.Abortion &&
-      val.trans_emb === 2
-    )
-      result = 0.51 * 100;
-
-    //6
-    if (
-      val.trans_emb === 2 &&
-      val.AMH >= 1 &&
-      !val.Thyroid_disorder &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
+      !val.relationship &&
+      !val.Dead_Child &&
       !val.Living_Child &&
-      !val.Abortion
+      !val.Stimulation_protocol === "Antagonist" &&
+      PN2_oocytes <= 10 &&
+      val.Fertilization_method === "ICSI"
     )
-      result = 0.51 * 100;
-
-    //7
-    if (
-      val.trans_emb === 2 &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      val.of2PN <= 10 &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion
-    )
-      result = 0.5 * 100;
-
-    //8
-    if (
-      val.trans_emb === 2 &&
-      val.oocyte_maturity >= 81 &&
-      val.oocyte_maturity < 100 &&
-      !val.Female_Surgical_History &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion
-    )
-      result = 0.5 * 100;
-
-    //9
-    if (
-      val.trans_emb === 2 &&
-      val.oocyte_maturity >= 81 &&
-      val.oocyte_maturity < 100 &&
-      val.AMH >= 1 &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion
-    )
-      result = 0.5 * 100;
-
-    //10
-    if (
-      val.Fertilization === "ICSI" &&
-      val.mii <= 10 &&
-      val.Stimulation === "Antagonist" &&
-      !val.Dead_child &&
-      !val.Living_Child &&
-      !val.Abortion &&
-      val.of2PN <= 10 &&
-      val.trans_emb === 2
-    )
-      result = 0.5 * 100;
+      result = 0.81 * 100;
 
     if (result) {
       setResult(result);
@@ -277,9 +152,7 @@ export default function FemaileForm() {
     <>
       <p className="fw-medium fs-4 text-primary-emphasis text-center px-3">
         Liveـbirth prediction expert system
-        <p className="fs-6 text-black text-center">
-          Female factor other than PCOS and POF
-        </p>
+        <p className="fs-6 text-black text-center">Unknown</p>
       </p>
       <div className=" p-lg-5 p-3 rounded shadow-sm bg-white">
         {messagetHolder}
@@ -298,8 +171,8 @@ export default function FemaileForm() {
           autoComplete="off"
         >
           <Form.Item
-            label="Previous surgeries related to female reproductive system"
-            name="Female_Surgical_History"
+            label="Kinship relationship of couples"
+            name="relationship"
             rules={[
               {
                 required: true,
@@ -383,8 +256,8 @@ export default function FemaileForm() {
           </Form.Item>
 
           <Form.Item
-            label="Anti-mullerian hormon (AMH) level (ng/ml)"
-            name="AMH"
+            label="Type of infertility"
+            name="infertility"
             rules={[
               {
                 required: true,
@@ -393,25 +266,7 @@ export default function FemaileForm() {
             ]}
           >
             <Radio.Group
-              options={AntiMullerianOptions}
-              optionType="button"
-              buttonStyle="solid"
-              style={{ flexWrap: "nowrap" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Progesterone Level on Day of hCG Injection (ng/ml)"
-            name="Progesterone"
-            rules={[
-              {
-                required: true,
-                message: "required",
-              },
-            ]}
-          >
-            <Radio.Group
-              options={ProgesteroneLevel}
+              options={infertility}
               optionType="button"
               buttonStyle="solid"
             />
@@ -419,7 +274,7 @@ export default function FemaileForm() {
 
           <Form.Item
             label="Stimulation protocol"
-            name="Stimulation"
+            name="Stimulation_protocol"
             rules={[
               {
                 required: true,
@@ -428,15 +283,15 @@ export default function FemaileForm() {
             ]}
           >
             <Radio.Group
-              options={StimulationProtocolOptions}
+              options={simulation}
               optionType="button"
               buttonStyle="solid"
             />
           </Form.Item>
 
           <Form.Item
-            label="No. of2PN oocytes"
-            name="of2PN"
+            label="No. of 2PN oocytes"
+            name="PN2_oocytes"
             rules={[
               {
                 required: true,
@@ -445,24 +300,7 @@ export default function FemaileForm() {
             ]}
           >
             <Radio.Group
-              options={Of2PNOptions}
-              optionType="button"
-              buttonStyle="solid"
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Number of MII oocytes"
-            name="mii"
-            rules={[
-              {
-                required: true,
-                message: "required",
-              },
-            ]}
-          >
-            <Radio.Group
-              options={Of2PNOptions}
+              options={ten}
               optionType="button"
               buttonStyle="solid"
             />
@@ -470,7 +308,7 @@ export default function FemaileForm() {
 
           <Form.Item
             label="No. of embryos transferred"
-            name="trans_emb"
+            name="embryos_transferred"
             rules={[
               {
                 required: true,
@@ -479,24 +317,7 @@ export default function FemaileForm() {
             ]}
           >
             <Radio.Group
-              options={embryosOptions}
-              optionType="button"
-              buttonStyle="solid"
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Oocyte maturity (M-Index %)"
-            name="oocyte_maturity"
-            rules={[
-              {
-                required: true,
-                message: "required",
-              },
-            ]}
-          >
-            <Radio.Group
-              options={maturityOptions}
+              options={justOne}
               optionType="button"
               buttonStyle="solid"
             />
@@ -504,7 +325,7 @@ export default function FemaileForm() {
 
           <Form.Item
             label="Fertilization method"
-            name="Fertilization"
+            name="Fertilization_method"
             rules={[
               {
                 required: true,
@@ -513,7 +334,7 @@ export default function FemaileForm() {
             ]}
           >
             <Radio.Group
-              options={FertilizationOptions}
+              options={Fertilization}
               optionType="button"
               buttonStyle="solid"
             />
